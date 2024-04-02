@@ -97,6 +97,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'io.sentry:sentry-spring-boot-starter-jakarta'
 	implementation 'org.flywaydb:flyway-core'
+	implementation 'com.google.cloud:google-cloud-vertexai:0.8.0'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
