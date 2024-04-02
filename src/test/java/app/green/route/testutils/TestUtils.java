@@ -5,10 +5,15 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 public class TestUtils {
+  public static String VALID_TOKEN = "valid_token";
+
   public static ApiClient anApiClient(String token, int serverPort) {
     ApiClient client = new ApiClient();
     client.setScheme("http");
     client.setHost("localhost");
+    client.setPort(serverPort);
+    client.setRequestInterceptor(httpRequestBuilder ->
+        httpRequestBuilder.header("Authorization", "Bearer " + token));
     return client;
   }
 
