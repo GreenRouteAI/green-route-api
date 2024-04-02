@@ -14,12 +14,7 @@ public class SecurityConf {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(
-            (authorize) ->
-                authorize
-                    .requestMatchers("/ping")
-                    .permitAll()
-                    .anyRequest()
-                    .denyAll())
+            (authorize) -> authorize.requestMatchers("/ping").permitAll().anyRequest().denyAll())
         .csrf(AbstractHttpConfigurer::disable)
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

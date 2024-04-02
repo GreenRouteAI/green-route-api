@@ -23,8 +23,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class User implements Serializable {
-  @Id
-  private String id;
+  @Id private String id;
 
   private String firstName;
   private String lastName;
@@ -32,8 +31,7 @@ public class User implements Serializable {
   @Column(unique = true)
   private String email;
 
-  @Timestamp
-  private Instant birthdate;
+  @Timestamp private Instant birthdate;
 
   @Column(unique = true)
   private String authenticationId;

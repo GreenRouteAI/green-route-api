@@ -74,5 +74,4 @@ public class InternalToRestException {
     restException.setMessage(e.getMessage());
     return restException;
   }
-
 }
