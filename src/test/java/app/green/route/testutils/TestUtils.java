@@ -12,12 +12,12 @@ public class TestUtils {
     client.setScheme("http");
     client.setHost("localhost");
     client.setPort(serverPort);
-    client.setRequestInterceptor(httpRequestBuilder ->
-        httpRequestBuilder.header("Authorization", "Bearer " + token));
+    client.setRequestInterceptor(
+        httpRequestBuilder -> httpRequestBuilder.header("Authorization", "Bearer " + token));
     return client;
   }
 
-  public static int anAvailablePort(){
+  public static int anAvailablePort() {
     try {
       return new ServerSocket(0).getLocalPort();
     } catch (IOException e) {

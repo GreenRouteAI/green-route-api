@@ -7,15 +7,17 @@ import org.springframework.test.context.support.TestPropertySourceUtils;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
-public abstract class AbstractContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+public abstract class AbstractContextInitializer
+    implements ApplicationContextInitializer<ConfigurableApplicationContext> {
   private static final String FLYWAY_TESTDATA_PATH = "classpath:/db/testdata";
 
   @Override
   public void initialize(@NotNull ConfigurableApplicationContext applicationContext) {
-    var postgresContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"))
-        .withDatabaseName("dummy")
-        .withUsername("dummy")
-        .withPassword("dummy");
+    var postgresContainer =
+        new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"))
+            .withDatabaseName("dummy")
+            .withUsername("dummy")
+            .withPassword("dummy");
 
     postgresContainer.start();
 

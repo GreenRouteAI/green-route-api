@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4.1.1
       - uses: actions/setup-java@v3
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'corretto'
       - run: chmod +x gradlew
       - run: ./gradlew test
@@ -41,3 +41,17 @@ jobs:
             -Dsonar.projectName=${{ vars.SONAR_PJ_NAME }} \
             -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/test/jacocoTestReport.xml \
             -Dsonar.java.checkstyle.reportPaths=build/reports/checkstyle/main.xml,build/reports/checkstyle/test.xml
+
+  format:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - run: chmod +x format.sh
+      - run: ./format.sh && git diff --exit-code
