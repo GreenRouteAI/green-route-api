@@ -27,6 +27,12 @@ public abstract class AbstractContextInitializer
         "spring.datasource.url=" + postgresContainer.getJdbcUrl(),
         "spring.datasource.username=" + postgresContainer.getUsername(),
         "spring.datasource.password=" + postgresContainer.getPassword(),
+        "gemini.project.id=dummy",
+        "gemini.location=dummy",
+        "gemini.type=gemini-pro",
+        "gemini.api.key={}",
+        "travel.api.key=dummy",
+        "travel.api.url=https://travelco2.com",
         "spring.flyway.locations=classpath:/db/migration," + FLYWAY_TESTDATA_PATH);
   }
 

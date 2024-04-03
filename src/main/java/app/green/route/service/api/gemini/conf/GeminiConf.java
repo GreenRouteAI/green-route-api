@@ -11,7 +11,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration(proxyBeanMethods = false)
@@ -32,7 +31,6 @@ public class GeminiConf {
     serviceAccountKey = key;
   }
 
-  @Bean
   @SneakyThrows
   public GenerativeModel getModel() {
     var credentials =
