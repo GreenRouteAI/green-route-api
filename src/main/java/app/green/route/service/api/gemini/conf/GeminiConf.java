@@ -1,13 +1,18 @@
 package app.green.route.service.api.gemini.conf;
 
+import app.green.route.model.exception.ApiException;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.vertexai.VertexAI;
+import com.google.cloud.vertexai.api.GenerateContentResponse;
 import com.google.cloud.vertexai.generativeai.GenerativeModel;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import static app.green.route.model.exception.ApiException.ExceptionType.SERVER_EXCEPTION;
 
 @Configuration(proxyBeanMethods = false)
 public class GeminiConf {
@@ -39,5 +44,13 @@ public class GeminiConf {
             .setCredentials(credentials)
             .build();
     return new GenerativeModel(modelType, vertexAi);
+  }
+
+  public GenerateContentResponse generateContent(String prompt) {
+    try {
+      return getModel().generateContent(prompt);
+    } catch (IOException e) {
+      throw new ApiException(SERVER_EXCEPTION, e.getMessage());
+    }
   }
 }
