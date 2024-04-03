@@ -10,6 +10,6 @@ public class ApiException extends RuntimeException {
 
   public enum ExceptionType {
     CLIENT_EXCEPTION,
-    SEVER_EXCEPTION
+    SERVER_EXCEPTION
   }
 }

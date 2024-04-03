@@ -12,10 +12,7 @@ public class GeminiService {
   private final GeminiConf conf;
 
   public GenerateContentResponse generateContent(String prompt) {
-    try {
-      return conf.getModel().generateContent(prompt);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    return conf.generateContent(prompt);
   }
+
 }
