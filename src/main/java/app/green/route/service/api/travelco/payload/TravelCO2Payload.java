@@ -18,13 +18,19 @@ public class TravelCO2Payload {
   private int people;
   private Vehicle vehicle;
 
-  class Vehicle {
+  @AllArgsConstructor
+  @Data
+  @ToString
+  public static class Vehicle {
     String type;
     String description;
     Fuel fuel;
   }
 
-  class Fuel {
+  @AllArgsConstructor
+  @Data
+  @ToString
+  public static class Fuel {
     String type;
     String description;
   }
