@@ -33,6 +33,8 @@ public abstract class AbstractContextInitializer
         "gemini.api.key={}",
         "travel.api.key=dummy",
         "travel.api.url=https://travelco2.com",
+        "sentry.dsn=https://public@sentry.example.com/1",
+        "sentry.environment=dummy",
         "spring.flyway.locations=classpath:/db/migration," + FLYWAY_TESTDATA_PATH);
   }
 
