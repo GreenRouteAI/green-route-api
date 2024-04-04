@@ -1,7 +1,6 @@
 package app.green.route.service.api.gemini;
 
 import app.green.route.service.api.gemini.conf.GeminiConf;
-import com.google.cloud.vertexai.api.GenerateContentResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class GeminiService {
   private final GeminiConf conf;
 
-  public GenerateContentResponse generateContent(String prompt) {
-    return conf.generateContent(prompt);
+  public String generateContent(String prompt) {
+    return conf.generateContent(prompt).getCandidates(0).getContent().getParts(0).getText();
   }
 }
