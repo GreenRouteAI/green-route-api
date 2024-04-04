@@ -83,6 +83,30 @@ paths:
         "500":
           $ref: "#/components/responses/500"
 
+  /itineraries:
+    post:
+      tags:
+        - Route
+      summary: Eco-friendly itineraries according to travel description
+      operationId: generateItineraries
+      security: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TravelDescription"
+      responses:
+        200:
+          description: Eco friendly route with description with carbone analysis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Itinerary"
+        '500':
+          $ref: '#/components/responses/500'
+
+
 components:
   responses:
     400:
@@ -144,6 +168,95 @@ components:
           type: string
         provider_id:
           type: string
+
+    Itinerary:
+      type: object
+      properties:
+        transport:
+          type: object
+          properties:
+            co2e:
+              type: number
+              description: Carbone footprint
+            co2e_pp:
+              type: number
+              description: Carbone footprint per person
+        accommodation:
+          type: object
+          properties:
+            co2e:
+              type: number
+              description: Carbone footprint
+            co2e_pp:
+              type: number
+              description: Carbone footprint per person
+        travel_description:
+          type: string
+    TravelDescription:
+      type: object
+      properties:
+        from:
+          type: string
+          example: Wall Street 96, New York City
+        to:
+          type: string
+          example: White House, Washington DC
+        distance:
+          type: integer
+        people:
+          type: integer
+          description: How many persons are going to travel?
+        accommodation_type:
+          type: string
+          enum:
+            - HOTEL
+            - HOSTEL
+            - TENT
+            - APARTMENT
+            - ROOM
+            - RENTED_APARTMENT
+        nights:
+          type: integer
+          description: 'Number of nights, defaults to 1.'
+        vehicle:
+          $ref: "#/components/schemas/Vehicle"
+    Vehicle:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - BICYCLE
+            - SMALL_CAR
+            - LARGE_CAR
+            - BUS
+            - MINIVAN
+            - MOTOR_HOME
+            - FLIGHT_REGULAR_ECONOMY
+            - FLIGHT_CHARTER_ECONOMY
+            - HIKING
+            - KAYAK
+            - TRAM
+            - SUBWAY
+            - FERRY
+            - TRAIN
+            - WALKING
+        fuel:
+          $ref: "#/components/schemas/Fuel"
+    Fuel:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - BIO_DIESEL
+            - DIESEL
+            - ETHANOL
+            - GASOLINE
+            - ELECTRICITY
+            - NATURAL_GAS
+            - BIO_BAS
+            - FOSSIL_GAS
 
     Page:
       type: integer
