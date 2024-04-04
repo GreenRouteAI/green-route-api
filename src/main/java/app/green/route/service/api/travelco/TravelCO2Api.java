@@ -9,8 +9,10 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 
+@Slf4j
 public class TravelCO2Api {
   private static final ObjectMapper mapper = new ObjectMapper();
   private static final String BEARER_PREFIX = "Bearer ";
@@ -34,9 +36,8 @@ public class TravelCO2Api {
               .build();
 
       HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-      return mapper
-          .findAndRegisterModules()
-          .convertValue(response.body(), CarboneFootPrintData.class);
+      log.info("Foot print resp {}", response.body());
+      return mapper.readValue(response.body(), CarboneFootPrintData.class);
     } catch (URISyntaxException | IOException | InterruptedException e) {
       throw new RuntimeException(e);
     }
