@@ -6,6 +6,18 @@ ARG DB_NAME
 ENV DB_NAME=$DB_NAME
 ARG DB_PASSWORD
 ENV DB_PASSWORD=$DB_PASSWORD
+ARG GEMINI_PROJECT_ID
+ENV GEMINI_PROJECT_ID=$GEMINI_PROJECT_ID
+ARG GEMINI_LOCATION
+ENV GEMINI_LOCATION=$GEMINI_LOCATION
+ARG GEMINI_API_KEY
+ENV GEMINI_API_KEY=$GEMINI_API_KEY
+ARG TRAVEL_API_KEY
+ENV TRAVEL_API_KEY=$TRAVEL_API_KEY
+ARG SENTRY_DSN
+ENV SENTRY_DSN=$SENTRY_DSN
+ARG SENTRY_ENV
+ENV SENTRY_ENV=$SENTRY_ENV
 
 COPY . /app
 WORKDIR /app
@@ -14,6 +26,6 @@ RUN chmod +x ./gradlew
 RUN ./gradlew clean build -x test
 
 FROM openjdk:17 AS final
-COPY --from=build /app/build/libs/*.jar /app/greenroute.jar
+COPY --from=build /app/build/libs/route.jar /app/greenroute.jar
 EXPOSE 80
 CMD ["java", "-jar", "/app/greenroute.jar"]
