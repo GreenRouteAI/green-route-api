@@ -1,8 +1,8 @@
 package app.green.route.endpoint.controller;
 
-import app.green.route.endpoint.security.AuthProvider;
 import app.green.route.endpoint.mapper.UserRestMapper;
 import app.green.route.endpoint.rest.model.User;
+import app.green.route.endpoint.security.AuthProvider;
 import app.green.route.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

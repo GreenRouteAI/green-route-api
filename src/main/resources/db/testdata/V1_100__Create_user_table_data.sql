@@ -1,0 +1,2 @@
+insert into "user" (id, first_name, last_name, email, birthdate, authentication_id, photo_id, username) values
+('user1_id', 'nyhasina', 'vagno', 'user1@email.com', null, 'user1_authentication_id', 'photo_id', 'nyhasina14')

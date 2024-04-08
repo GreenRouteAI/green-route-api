@@ -31,6 +31,7 @@ public abstract class AbstractContextInitializer
         "gemini.location=dummy",
         "gemini.type=gemini-pro",
         "gemini.api.key={}",
+        "firebase.private.key={}",
         "travel.api.key=dummy",
         "travel.api.url=https://travelco2.com",
         "sentry.dsn=https://public@sentry.example.com/1",
