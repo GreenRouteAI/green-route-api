@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserRestMapper {
 
-  public User toRest(app.green.route.model.User domain){
+  public User toRest(app.green.route.model.User domain) {
     return new User()
         .id(domain.getId())
         .firstName(domain.getFirstName())

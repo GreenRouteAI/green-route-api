@@ -3,8 +3,6 @@ package app.green.route.endpoint.security;
 import static org.springframework.http.HttpMethod.OPTIONS;
 import static org.springframework.http.HttpMethod.POST;
 
-import app.green.route.endpoint.security.AuthFilter;
-import app.green.route.endpoint.security.AuthProvider;
 import app.green.route.model.exception.ForbiddenException;
 import app.green.route.service.UserService;
 import app.green.route.service.api.firebase.FirebaseService;
