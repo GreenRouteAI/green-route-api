@@ -1,4 +1,4 @@
-package app.green.route;
+package app.green.route.endpoint;
 
 import app.green.route.model.User;
 import java.util.Collection;
