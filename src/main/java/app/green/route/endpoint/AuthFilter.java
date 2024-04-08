@@ -1,6 +1,5 @@
 package app.green.route.endpoint;
 
-import app.green.route.Principal;
 import app.green.route.model.User;
 import app.green.route.service.UserService;
 import app.green.route.service.api.firebase.FUser;
