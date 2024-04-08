@@ -1,6 +1,7 @@
 package app.green.route.endpoint.security;
 
 import static org.springframework.http.HttpMethod.OPTIONS;
+import static org.springframework.http.HttpMethod.POST;
 
 import app.green.route.endpoint.security.AuthFilter;
 import app.green.route.endpoint.security.AuthProvider;
@@ -54,6 +55,7 @@ public class SecurityConf {
                 new NegatedRequestMatcher(
                     new OrRequestMatcher(
                         new AntPathRequestMatcher("/ping"),
+                        new AntPathRequestMatcher("/signup", POST.name()),
                         new AntPathRequestMatcher("/**", OPTIONS.toString())))),
             AnonymousAuthenticationFilter.class)
         .authorizeHttpRequests(
@@ -63,6 +65,10 @@ public class SecurityConf {
                     .permitAll()
                     .requestMatchers("/ping")
                     .permitAll()
+                    .requestMatchers(POST, "/signup")
+                    .permitAll()
+                    .requestMatchers(POST, "/signin")
+                    .authenticated()
                     .anyRequest()
                     .denyAll())
         .csrf(AbstractHttpConfigurer::disable)

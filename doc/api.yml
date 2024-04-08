@@ -33,12 +33,6 @@ paths:
       summary: Login user.
       operationId: signIn
       security: [ ]
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AuthenticationPayload"
       responses:
         "201":
           description: Logged in payload.
