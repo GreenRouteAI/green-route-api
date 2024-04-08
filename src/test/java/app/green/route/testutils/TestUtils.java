@@ -1,13 +1,28 @@
 package app.green.route.testutils;
 
+import static app.green.route.endpoint.rest.model.Fuel.TypeEnum.DIESEL;
+import static app.green.route.endpoint.rest.model.TravelDescription.AccommodationTypeEnum.HOSTEL;
+import static app.green.route.endpoint.rest.model.Vehicle.TypeEnum.SMALL_CAR;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import app.green.route.endpoint.rest.client.ApiClient;
+import app.green.route.endpoint.rest.model.Fuel;
+import app.green.route.endpoint.rest.model.TravelDescription;
 import app.green.route.endpoint.rest.model.User;
+import app.green.route.endpoint.rest.model.Vehicle;
 import app.green.route.service.api.firebase.FUser;
 import app.green.route.service.api.firebase.FirebaseService;
+import app.green.route.service.api.gemini.conf.GeminiConf;
+import com.google.cloud.vertexai.VertexAI;
+import com.google.cloud.vertexai.api.Candidate;
+import com.google.cloud.vertexai.api.Content;
+import com.google.cloud.vertexai.api.GenerateContentResponse;
+import com.google.cloud.vertexai.api.Part;
+import com.google.cloud.vertexai.generativeai.GenerativeModel;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.List;
 
 public class TestUtils {
   public static String VALID_TOKEN = "valid_token";
@@ -23,6 +38,25 @@ public class TestUtils {
     client.setRequestInterceptor(
         httpRequestBuilder -> httpRequestBuilder.header("Authorization", "Bearer " + token));
     return client;
+  }
+
+  public static void setGeminiConf(GeminiConf geminiConfMock) {
+    when(geminiConfMock.getModel())
+        .thenReturn(new GenerativeModel("dummy", new VertexAI("dummy", "dummy")));
+    when(geminiConfMock.generateContent(any()))
+        .thenReturn(
+            GenerateContentResponse.newBuilder()
+                .addAllCandidates(
+                    List.of(
+                        new Candidate[] {
+                          Candidate.newBuilder()
+                              .setContent(
+                                  Content.newBuilder()
+                                      .addParts(Part.newBuilder().setText("Hi").build())
+                                      .build())
+                              .build()
+                        }))
+                .build());
   }
 
   public static void setFirebaseService(FirebaseService firebaseService) {
@@ -60,5 +94,16 @@ public class TestUtils {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public static TravelDescription travelDescription() {
+    return new TravelDescription()
+        .from("Paris")
+        .to("London")
+        .distance(5000)
+        .people(2)
+        .nights(7)
+        .vehicle(new Vehicle().type(SMALL_CAR).fuel(new Fuel().type(DIESEL)))
+        .accommodationType(HOSTEL);
   }
 }
