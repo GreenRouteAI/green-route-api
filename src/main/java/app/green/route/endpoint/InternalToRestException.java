@@ -2,6 +2,7 @@ package app.green.route.endpoint;
 
 import app.green.route.endpoint.rest.model.Exception;
 import app.green.route.model.exception.BadRequestException;
+import app.green.route.model.exception.ForbiddenException;
 import app.green.route.model.exception.NotFoundException;
 import app.green.route.model.exception.TooManyRequestsException;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +54,12 @@ public class InternalToRestException {
     log.info("Too many requests", e);
     return new ResponseEntity<>(
         toRest(e, HttpStatus.TOO_MANY_REQUESTS), HttpStatus.TOO_MANY_REQUESTS);
+  }
+
+  @ExceptionHandler(value = {ForbiddenException.class})
+  ResponseEntity<Exception> handleForbidden(ForbiddenException e) {
+    log.info("Forbidden", e);
+    return new ResponseEntity<>(toRest(e, HttpStatus.FORBIDDEN), HttpStatus.FORBIDDEN);
   }
 
   @ExceptionHandler(value = {NotFoundException.class})

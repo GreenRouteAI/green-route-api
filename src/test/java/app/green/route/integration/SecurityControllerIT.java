@@ -15,7 +15,6 @@ import app.green.route.endpoint.rest.api.SecurityApi;
 import app.green.route.endpoint.rest.client.ApiClient;
 import app.green.route.endpoint.rest.client.ApiException;
 import app.green.route.endpoint.rest.model.User;
-import app.green.route.model.exception.ForbiddenException;
 import app.green.route.service.api.firebase.FirebaseService;
 import app.green.route.testutils.TestUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,8 +30,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @ContextConfiguration(initializers = SecurityControllerIT.ContextInitializer.class)
 @AutoConfigureMockMvc
 public class SecurityControllerIT {
-  @MockBean
-  private FirebaseService firebaseServiceMock;
+  @MockBean private FirebaseService firebaseServiceMock;
 
   @BeforeEach
   void setUp() {

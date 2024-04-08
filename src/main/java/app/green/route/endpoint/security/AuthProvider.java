@@ -8,7 +8,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AuthProvider extends AbstractUserDetailsAuthenticationProvider {
   private static final String BEARER_PREFIX = "Bearer ";
 
