@@ -80,20 +80,17 @@ task generateJavaClient(type: GenerateTask) {
 	generateAliasAsModel = false
 	enablePostProcessFile = false
 }
-task generateTsClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
-	generatorName = "typescript-axios"
+
+task generateJsClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+	generatorName = "javascript"
 	inputSpec = "$rootDir/doc/api.yml".toString()
-	outputDir = "$buildDir/gen-ts".toString()
-	typeMappings = [
-			Date    : "Date",
-			DateTime: "Date",
-	]
+	outputDir = "$buildDir/gen-js".toString()
 	additionalProperties = [
-			enumPropertyNaming: "original",
-			npmName           : "@route/typescript-client",
-			npmVersion        : project.properties["args"] ?: "latest"
+			npmName    : "@route/javascript-client",
+			npmVersion : project.properties["args"] ?: "latest"
 	]
 }
+
 task publishJavaClientToMavenLocal(type: Exec, dependsOn: generateJavaClient) {
 	if (Os.isFamily(Os.FAMILY_WINDOWS)){
 		commandLine './.shell/publish_gen_to_maven_local.bat'
