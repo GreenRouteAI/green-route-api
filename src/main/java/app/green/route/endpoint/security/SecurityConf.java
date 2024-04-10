@@ -74,6 +74,8 @@ public class SecurityConf {
                     .authenticated()
                     .requestMatchers(POST, "/itineraries")
                     .authenticated()
+                    .requestMatchers(GET, "/activities")
+                    .authenticated()
                     .anyRequest()
                     .denyAll())
         .csrf(AbstractHttpConfigurer::disable)
