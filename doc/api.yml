@@ -301,7 +301,6 @@ components:
       properties:
         date:
           type: string
-          format: date-time
         day:
           type: object
           properties:
