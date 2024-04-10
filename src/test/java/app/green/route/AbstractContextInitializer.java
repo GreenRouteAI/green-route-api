@@ -36,6 +36,8 @@ public abstract class AbstractContextInitializer
         "travel.api.url=https://travelco2.com",
         "sentry.dsn=https://public@sentry.example.com/1",
         "sentry.environment=dummy",
+        "weather.api.key=dummy",
+        "weather.api.url=https://api.weatherapi.com",
         "spring.flyway.locations=classpath:/db/migration," + FLYWAY_TESTDATA_PATH);
   }
 
