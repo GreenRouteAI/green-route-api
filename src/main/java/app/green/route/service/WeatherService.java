@@ -9,6 +9,7 @@ import app.green.route.endpoint.rest.model.InlineObject;
 import app.green.route.endpoint.rest.model.Weather;
 import app.green.route.service.api.weather.WeatherApi;
 import app.green.route.service.api.weather.payload.WeatherResponse;
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -49,8 +50,8 @@ public class WeatherService {
         .date(forecastDay.getDate())
         .day(
             new ForecastDayDay()
-                .maxTemp(Integer.parseInt(forecastDay.getDay().getMaxTempC()))
-                .minTemp(Integer.parseInt(forecastDay.getDay().getMinTempC()))
+                .maxTemp(new BigDecimal(forecastDay.getDay().getMaxTempC()))
+                .minTemp(new BigDecimal(forecastDay.getDay().getMinTempC()))
                 .condition(
                     new ForecastDayDayCondition()
                         .text(forecastDay.getDay().getCondition().getText())

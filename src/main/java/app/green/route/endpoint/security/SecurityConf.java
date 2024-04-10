@@ -54,6 +54,7 @@ public class SecurityConf {
                 new NegatedRequestMatcher(
                     new OrRequestMatcher(
                         new AntPathRequestMatcher("/ping"),
+                        new AntPathRequestMatcher("/weathers"),
                         new AntPathRequestMatcher("/signup", POST.name()),
                         new AntPathRequestMatcher("/**", OPTIONS.toString())))),
             AnonymousAuthenticationFilter.class)
@@ -63,6 +64,8 @@ public class SecurityConf {
                     .requestMatchers(OPTIONS, "/**")
                     .permitAll()
                     .requestMatchers("/ping")
+                    .permitAll()
+                    .requestMatchers("/weathers")
                     .permitAll()
                     .requestMatchers(POST, "/signup")
                     .permitAll()

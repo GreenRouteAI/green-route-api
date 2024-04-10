@@ -305,10 +305,10 @@ components:
           type: object
           properties:
             max_temp:
-              type: integer
+              type: number
               description: Temperature in Celsius multiply by 100
             min_temp:
-              type: integer
+              type: number
               description: Temperature in Celsius multiply by 100
             condition:
               type: object
