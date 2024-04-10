@@ -1,7 +1,9 @@
 package app.green.route.service.api.travelco;
 
-import app.green.route.service.api.travelco.payload.CarboneFootPrintData;
-import app.green.route.service.api.travelco.payload.TravelCO2Payload;
+import app.green.route.service.api.travelco.payload.AccommodationCarboneFootPrint;
+import app.green.route.service.api.travelco.payload.AccommodationPayload;
+import app.green.route.service.api.travelco.payload.TransportCarboneFootPrint;
+import app.green.route.service.api.travelco.payload.TransportPayload;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.URI;
@@ -27,7 +29,7 @@ public class TravelCO2Api {
     baseUrl = url;
   }
 
-  public CarboneFootPrintData evaluateCO2e(TravelCO2Payload payload) {
+  public TransportCarboneFootPrint evaluateTransport(TransportPayload payload) {
     HttpClient client = HttpClient.newBuilder().build();
     try {
       HttpRequest request =
@@ -39,7 +41,25 @@ public class TravelCO2Api {
 
       HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
       log.info("Foot print resp {}", response.body());
-      return mapper.readValue(response.body(), CarboneFootPrintData.class);
+      return mapper.readValue(response.body(), TransportCarboneFootPrint.class);
+    } catch (URISyntaxException | IOException | InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public AccommodationCarboneFootPrint evaluateAccommodation(AccommodationPayload payload) {
+    HttpClient client = HttpClient.newBuilder().build();
+    try {
+      HttpRequest request =
+          HttpRequest.newBuilder()
+              .uri(new URI(baseUrl + "/api/v1/accommodation"))
+              .header("Authorization", BEARER_PREFIX + apiKey)
+              .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(payload)))
+              .build();
+
+      HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+      log.info("Foot print resp {}", response.body());
+      return mapper.readValue(response.body(), AccommodationCarboneFootPrint.class);
     } catch (URISyntaxException | IOException | InterruptedException e) {
       throw new RuntimeException(e);
     }

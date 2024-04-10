@@ -17,7 +17,8 @@ public class RouteController {
 
   @PostMapping(value = "/itineraries")
   public Itinerary generateItineraries(@RequestBody TravelDescription travelDescription) {
-    var payload = mapper.toDomainTravelPayload(travelDescription);
-    return service.generateItineraries(payload, travelDescription);
+    var transport = mapper.toDomainTravelPayload(travelDescription);
+    var accommodation = mapper.toDomainAccommodationPayload(travelDescription);
+    return service.generateItineraries(transport, accommodation, travelDescription);
   }
 }

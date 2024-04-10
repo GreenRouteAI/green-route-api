@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @JsonPropertyOrder({
-  CarboneFootPrintData.JSON_PROPERTY_DISTANCE,
-  CarboneFootPrintData.JSON_PROPERTY_PEOPLE,
-  CarboneFootPrintData.JSON_PROPERTY_WAYS,
-  CarboneFootPrintData.JSON_PROPERTY_CO2E,
-  CarboneFootPrintData.JSON_PROPERTY_CO2E_PP,
-  CarboneFootPrintData.JSON_PROPERTY_VEHICLE,
-  CarboneFootPrintData.JSON_PROPERTY_TYPE,
-  CarboneFootPrintData.JSON_PROPERTY_TITLE
+  TransportCarboneFootPrint.JSON_PROPERTY_DISTANCE,
+  TransportCarboneFootPrint.JSON_PROPERTY_PEOPLE,
+  TransportCarboneFootPrint.JSON_PROPERTY_WAYS,
+  TransportCarboneFootPrint.JSON_PROPERTY_CO2E,
+  TransportCarboneFootPrint.JSON_PROPERTY_CO2E_PP,
+  TransportCarboneFootPrint.JSON_PROPERTY_VEHICLE,
+  TransportCarboneFootPrint.JSON_PROPERTY_TYPE,
+  TransportCarboneFootPrint.JSON_PROPERTY_TITLE
 })
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +27,7 @@ import lombok.ToString;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 @EqualsAndHashCode
-public class CarboneFootPrintData {
+public class TransportCarboneFootPrint {
   public static final String JSON_PROPERTY_TYPE = "type";
   public static final String JSON_PROPERTY_TITLE = "title";
   public static final String JSON_PROPERTY_DISTANCE = "distance";

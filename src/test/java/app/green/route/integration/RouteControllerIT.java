@@ -18,8 +18,8 @@ import app.green.route.endpoint.rest.model.Itinerary;
 import app.green.route.service.api.firebase.FirebaseService;
 import app.green.route.service.api.gemini.conf.GeminiConf;
 import app.green.route.service.api.travelco.TravelCO2Api;
-import app.green.route.service.api.travelco.payload.CarboneFootPrintData;
-import app.green.route.service.api.travelco.payload.TravelCO2Payload;
+import app.green.route.service.api.travelco.payload.TransportCarboneFootPrint;
+import app.green.route.service.api.travelco.payload.TransportPayload;
 import app.green.route.testutils.TestUtils;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,14 +43,14 @@ public class RouteControllerIT {
   void setUp() {
     setGeminiConf(geminiConf);
     setFirebaseService(firebaseService);
-    when(travelCO2Api.evaluateCO2e(any(TravelCO2Payload.class)))
+    when(travelCO2Api.evaluateTransport(any(TransportPayload.class)))
         .thenReturn(
-            CarboneFootPrintData.builder()
+            TransportCarboneFootPrint.builder()
                 .co2e(10.3)
                 .co2ePP(2.36)
                 .distance(5000)
                 .people(2)
-                .vehicle(new CarboneFootPrintData.Vehicle())
+                .vehicle(new TransportCarboneFootPrint.Vehicle())
                 .build());
   }
 

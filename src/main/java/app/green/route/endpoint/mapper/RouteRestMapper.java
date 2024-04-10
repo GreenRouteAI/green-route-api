@@ -3,24 +3,33 @@ package app.green.route.endpoint.mapper;
 import app.green.route.endpoint.rest.model.Fuel;
 import app.green.route.endpoint.rest.model.TravelDescription;
 import app.green.route.endpoint.rest.model.Vehicle;
-import app.green.route.service.api.travelco.payload.TravelCO2Payload;
+import app.green.route.service.api.travelco.payload.AccommodationPayload;
+import app.green.route.service.api.travelco.payload.TransportPayload;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RouteRestMapper {
-  public TravelCO2Payload toDomainTravelPayload(TravelDescription rest) {
-    return TravelCO2Payload.builder()
+  public TransportPayload toDomainTravelPayload(TravelDescription rest) {
+    return TransportPayload.builder()
         .distance(rest.getDistance())
         .people(rest.getPeople())
         .vehicle(toDomainVehicle(rest.getVehicle()))
         .build();
   }
 
-  private TravelCO2Payload.Vehicle toDomainVehicle(Vehicle vehicle) {
-    return new TravelCO2Payload.Vehicle(
+  public AccommodationPayload toDomainAccommodationPayload(TravelDescription rest) {
+    return AccommodationPayload.builder()
+        .type(accommodationType(rest.getAccommodationType()))
+        .nights(rest.getNights())
+        .people(rest.getPeople())
+        .build();
+  }
+
+  private TransportPayload.Vehicle toDomainVehicle(Vehicle vehicle) {
+    return new TransportPayload.Vehicle(
         vehicleType(vehicle.getType()),
         vehicleType(vehicle.getType()),
-        new TravelCO2Payload.Fuel(
+        new TransportPayload.Fuel(
             fuelType(vehicle.getFuel().getType()), fuelType(vehicle.getFuel().getType())));
   }
 
@@ -54,6 +63,17 @@ public class RouteRestMapper {
       case NATURAL_GAS -> "natural-gas";
       case BIO_BAS -> "bio-gas";
       case FOSSIL_GAS -> "fossil-gas";
+    };
+  }
+
+  private String accommodationType(TravelDescription.AccommodationTypeEnum type) {
+    return switch (type) {
+      case HOTEL -> "hotel";
+      case HOSTEL -> "hostel";
+      case TENT -> "tent";
+      case APARTMENT -> "apartment";
+      case ROOM -> "room";
+      case RENTED_APARTMENT -> "rented_apartment";
     };
   }
 }
