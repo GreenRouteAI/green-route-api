@@ -1,8 +1,13 @@
 package app.green.route.service;
 
+import static java.util.UUID.randomUUID;
+
 import app.green.route.endpoint.rest.model.Itinerary;
 import app.green.route.endpoint.rest.model.ItineraryTransport;
 import app.green.route.endpoint.rest.model.TravelDescription;
+import app.green.route.endpoint.security.AuthProvider;
+import app.green.route.model.History;
+import app.green.route.repository.HistoryRepository;
 import app.green.route.service.api.gemini.GeminiService;
 import app.green.route.service.api.travelco.TravelCO2Api;
 import app.green.route.service.api.travelco.payload.CarboneFootPrintData;
@@ -16,6 +21,7 @@ import org.springframework.stereotype.Service;
 public class RouteService {
   private final GeminiService geminiService;
   private final TravelCO2Api travelCO2Api;
+  private final HistoryRepository historyRepository;
 
   public Itinerary generateItineraries(TravelCO2Payload travel, TravelDescription description) {
     CarboneFootPrintData carboneFootPrint = travelCO2Api.evaluateCO2e(travel);
@@ -30,6 +36,18 @@ public class RouteService {
                 description.getVehicle().getType(),
                 description.getNights(),
                 description.getAccommodationType()));
+    var itinerary = itineraryFrom(promptResponse, carboneFootPrint);
+    var authenticatedUser = AuthProvider.getUser();
+    var history =
+        History.builder()
+            .id(randomUUID().toString())
+            .user(authenticatedUser)
+            .itinerary(itinerary)
+            .build();
+    return historyRepository.save(history).getItinerary();
+  }
+
+  private Itinerary itineraryFrom(String promptResponse, CarboneFootPrintData carboneFootPrint) {
     return new Itinerary()
         .travelDescription(promptResponse)
         .transport(
