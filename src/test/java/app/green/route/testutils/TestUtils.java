@@ -14,6 +14,11 @@ import app.green.route.endpoint.rest.model.Vehicle;
 import app.green.route.service.api.firebase.FUser;
 import app.green.route.service.api.firebase.FirebaseService;
 import app.green.route.service.api.gemini.conf.GeminiConf;
+import app.green.route.service.api.travelco.TravelCO2Api;
+import app.green.route.service.api.travelco.payload.AccommodationCarboneFootPrint;
+import app.green.route.service.api.travelco.payload.AccommodationPayload;
+import app.green.route.service.api.travelco.payload.TransportCarboneFootPrint;
+import app.green.route.service.api.travelco.payload.TransportPayload;
 import com.google.cloud.vertexai.VertexAI;
 import com.google.cloud.vertexai.api.Candidate;
 import com.google.cloud.vertexai.api.Content;
@@ -62,6 +67,27 @@ public class TestUtils {
   public static void setFirebaseService(FirebaseService firebaseService) {
     when(firebaseService.getUserByBearer(VALID_TOKEN))
         .thenReturn(new FUser(USER1_AUTHENTICATION_ID, "user1@email.com"));
+  }
+
+  public static void setTravelApi(TravelCO2Api travelApi) {
+    when(travelApi.evaluateTransport(any(TransportPayload.class)))
+        .thenReturn(
+            TransportCarboneFootPrint.builder()
+                .co2e(10.3)
+                .co2ePP(2.36)
+                .distance(5000)
+                .people(2)
+                .vehicle(new TransportCarboneFootPrint.Vehicle())
+                .build());
+    when(travelApi.evaluateAccommodation(any(AccommodationPayload.class)))
+        .thenReturn(
+            AccommodationCarboneFootPrint.builder()
+                .co2e(10.3)
+                .co2ePP(2.36)
+                .people(2)
+                .nights(2)
+                .type("hotel")
+                .build());
   }
 
   public static User expected() {

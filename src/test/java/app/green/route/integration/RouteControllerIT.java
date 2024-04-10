@@ -4,10 +4,9 @@ import static app.green.route.testutils.TestUtils.VALID_TOKEN;
 import static app.green.route.testutils.TestUtils.anAvailablePort;
 import static app.green.route.testutils.TestUtils.setFirebaseService;
 import static app.green.route.testutils.TestUtils.setGeminiConf;
+import static app.green.route.testutils.TestUtils.setTravelApi;
 import static app.green.route.testutils.TestUtils.travelDescription;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 import app.green.route.AbstractContextInitializer;
@@ -18,8 +17,6 @@ import app.green.route.endpoint.rest.model.Itinerary;
 import app.green.route.service.api.firebase.FirebaseService;
 import app.green.route.service.api.gemini.conf.GeminiConf;
 import app.green.route.service.api.travelco.TravelCO2Api;
-import app.green.route.service.api.travelco.payload.TransportCarboneFootPrint;
-import app.green.route.service.api.travelco.payload.TransportPayload;
 import app.green.route.testutils.TestUtils;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,15 +40,7 @@ public class RouteControllerIT {
   void setUp() {
     setGeminiConf(geminiConf);
     setFirebaseService(firebaseService);
-    when(travelCO2Api.evaluateTransport(any(TransportPayload.class)))
-        .thenReturn(
-            TransportCarboneFootPrint.builder()
-                .co2e(10.3)
-                .co2ePP(2.36)
-                .distance(5000)
-                .people(2)
-                .vehicle(new TransportCarboneFootPrint.Vehicle())
-                .build());
+    setTravelApi(travelCO2Api);
   }
 
   private ApiClient anApiClient(String token) {
