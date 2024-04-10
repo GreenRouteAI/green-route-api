@@ -51,13 +51,13 @@ public class UserControllerIT {
     assertEquals(user1(), actual);
   }
 
-  // Uncomment when self matcher is correctly set
-  /**
-   * @Test void other_user_read_other_by_id_ko() throws ApiException { ApiClient client =
-   * anApiClient(VALID_TOKEN); UserApi api = new UserApi(client);
-   *
-   * <p>assertThrows(ApiException.class, () -> api.getUserById(toCreate().getId())); }*
-   */
+  @Test
+  void other_user_read_other_by_id_ko() throws ApiException {
+    ApiClient client = anApiClient(VALID_TOKEN);
+    UserApi api = new UserApi(client);
+    assertThrows(ApiException.class, () -> api.getUserById(toCreate().getId()));
+  }
+
   @Test
   void read_user_by_id_ko() throws ApiException {
     ApiClient client = anApiClient(BAD_TOKEN);
