@@ -1,8 +1,10 @@
 package app.green.route.endpoint.security;
 
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.OPTIONS;
 import static org.springframework.http.HttpMethod.POST;
 
+import app.green.route.endpoint.matcher.SelfUserMatcher;
 import app.green.route.model.exception.ForbiddenException;
 import app.green.route.service.UserService;
 import app.green.route.service.api.firebase.FirebaseService;
@@ -66,6 +68,8 @@ public class SecurityConf {
                     .requestMatchers(POST, "/signup")
                     .permitAll()
                     .requestMatchers(POST, "/signin")
+                    .authenticated()
+                    .requestMatchers(new SelfUserMatcher(GET, "/users/*"))
                     .authenticated()
                     .requestMatchers(POST, "/itineraries")
                     .authenticated()
