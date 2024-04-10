@@ -18,7 +18,7 @@ import lombok.ToString;
 public class AccommodationCarboneFootPrint {
   private String type;
   private String title;
-  private String nights;
+  private int nights;
   private int people;
   private double co2e;
   private double co2ePP;
