@@ -4,7 +4,6 @@ import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.OPTIONS;
 import static org.springframework.http.HttpMethod.POST;
 
-import app.green.route.endpoint.matcher.SelfUserMatcher;
 import app.green.route.model.exception.ForbiddenException;
 import app.green.route.service.UserService;
 import app.green.route.service.api.firebase.FirebaseService;
@@ -69,7 +68,9 @@ public class SecurityConf {
                     .permitAll()
                     .requestMatchers(POST, "/signin")
                     .authenticated()
-                    .requestMatchers(new SelfUserMatcher(GET, "/users/*"))
+                    // requestMatchers(new SelfUserMatcher(GET, "/users/*")) uncomment when self
+                    // matcher correctly set
+                    .requestMatchers(GET, "/users/*")
                     .authenticated()
                     .requestMatchers(POST, "/itineraries")
                     .authenticated()
