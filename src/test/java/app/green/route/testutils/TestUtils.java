@@ -90,7 +90,7 @@ public class TestUtils {
                 .build());
   }
 
-  public static User expected() {
+  public static User user1() {
     return new User()
         .id(USER1_ID)
         .birthDate(null)

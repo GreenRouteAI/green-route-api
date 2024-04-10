@@ -3,9 +3,9 @@ package app.green.route.integration;
 import static app.green.route.testutils.TestUtils.BAD_TOKEN;
 import static app.green.route.testutils.TestUtils.VALID_TOKEN;
 import static app.green.route.testutils.TestUtils.anAvailablePort;
-import static app.green.route.testutils.TestUtils.expected;
 import static app.green.route.testutils.TestUtils.setFirebaseService;
 import static app.green.route.testutils.TestUtils.toCreate;
+import static app.green.route.testutils.TestUtils.user1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -46,9 +46,9 @@ public class UserControllerIT {
     ApiClient client = anApiClient(VALID_TOKEN);
     UserApi api = new UserApi(client);
 
-    User actual = api.getUserById(expected().getId());
+    User actual = api.getUserById(user1().getId());
 
-    assertEquals(expected(), actual);
+    assertEquals(user1(), actual);
   }
 
   // Uncomment when self matcher is correctly set
