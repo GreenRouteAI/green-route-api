@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class TravelCO2Payload {
+public class TransportPayload {
   private double distance;
   private int people;
   private Vehicle vehicle;

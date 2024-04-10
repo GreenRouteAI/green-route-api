@@ -10,8 +10,10 @@ import app.green.route.model.History;
 import app.green.route.repository.HistoryRepository;
 import app.green.route.service.api.gemini.GeminiService;
 import app.green.route.service.api.travelco.TravelCO2Api;
-import app.green.route.service.api.travelco.payload.CarboneFootPrintData;
-import app.green.route.service.api.travelco.payload.TravelCO2Payload;
+import app.green.route.service.api.travelco.payload.AccommodationCarboneFootPrint;
+import app.green.route.service.api.travelco.payload.AccommodationPayload;
+import app.green.route.service.api.travelco.payload.TransportCarboneFootPrint;
+import app.green.route.service.api.travelco.payload.TransportPayload;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,8 +25,13 @@ public class RouteService {
   private final TravelCO2Api travelCO2Api;
   private final HistoryRepository historyRepository;
 
-  public Itinerary generateItineraries(TravelCO2Payload travel, TravelDescription description) {
-    CarboneFootPrintData carboneFootPrint = travelCO2Api.evaluateCO2e(travel);
+  public Itinerary generateItineraries(
+      TransportPayload transport,
+      AccommodationPayload accommodation,
+      TravelDescription description) {
+    TransportCarboneFootPrint transCarboneFootPrint = travelCO2Api.evaluateTransport(transport);
+    AccommodationCarboneFootPrint accCarboneFootPrint =
+        travelCO2Api.evaluateAccommodation(accommodation);
     String promptResponse =
         geminiService.generateContent(
             String.format(
@@ -36,7 +43,7 @@ public class RouteService {
                 description.getVehicle().getType(),
                 description.getNights(),
                 description.getAccommodationType()));
-    var itinerary = itineraryFrom(promptResponse, carboneFootPrint);
+    var itinerary = itineraryFrom(promptResponse, transCarboneFootPrint, accCarboneFootPrint);
     var authenticatedUser = AuthProvider.getUser();
     var history =
         History.builder()
@@ -47,7 +54,10 @@ public class RouteService {
     return historyRepository.save(history).getItinerary();
   }
 
-  private Itinerary itineraryFrom(String promptResponse, CarboneFootPrintData carboneFootPrint) {
+  private Itinerary itineraryFrom(
+      String promptResponse,
+      TransportCarboneFootPrint carboneFootPrint,
+      AccommodationCarboneFootPrint accCarboneFootPrint) {
     return new Itinerary()
         .travelDescription(promptResponse)
         .transport(
@@ -56,7 +66,7 @@ public class RouteService {
                 .co2ePp(BigDecimal.valueOf(carboneFootPrint.getCo2ePP())))
         .accommodation(
             new ItineraryTransport()
-                .co2e(BigDecimal.valueOf(carboneFootPrint.getCo2e()))
-                .co2ePp(BigDecimal.valueOf(carboneFootPrint.getCo2ePP())));
+                .co2e(BigDecimal.valueOf(accCarboneFootPrint.getCo2e()))
+                .co2ePp(BigDecimal.valueOf(accCarboneFootPrint.getCo2ePP())));
   }
 }
