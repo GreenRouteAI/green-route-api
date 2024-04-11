@@ -19,6 +19,7 @@ import app.green.route.service.api.travelco.payload.AccommodationCarboneFootPrin
 import app.green.route.service.api.travelco.payload.AccommodationPayload;
 import app.green.route.service.api.travelco.payload.TransportCarboneFootPrint;
 import app.green.route.service.api.travelco.payload.TransportPayload;
+import app.green.route.service.file.FileStorageService;
 import com.google.cloud.vertexai.VertexAI;
 import com.google.cloud.vertexai.api.Candidate;
 import com.google.cloud.vertexai.api.Content;
@@ -67,6 +68,12 @@ public class TestUtils {
   public static void setFirebaseService(FirebaseService firebaseService) {
     when(firebaseService.getUserByBearer(VALID_TOKEN))
         .thenReturn(new FUser(USER1_AUTHENTICATION_ID, "user1@email.com"));
+  }
+
+  public static void setFileStorageService(FileStorageService fileStorageService)
+      throws IOException {
+    when(fileStorageService.downloadFile(any())).thenReturn("photo.png".getBytes());
+    when(fileStorageService.uploadFile(any(), any())).thenReturn("photo.png");
   }
 
   public static void setTravelApi(TravelCO2Api travelApi) {
