@@ -34,7 +34,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @ContextConfiguration(initializers = WeatherControllerIT.ContextInitializer.class)
 @AutoConfigureMockMvc
-public class WeatherControllerIT {
+class WeatherControllerIT {
   @MockBean private WeatherApi weatherApi;
   @MockBean private FirebaseService firebaseService;
   @MockBean private FileStorageService fileStorageService;

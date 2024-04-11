@@ -25,7 +25,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @ContextConfiguration(initializers = HealthControllerIT.ContextInitializer.class)
 @AutoConfigureMockMvc
-public class HealthControllerIT {
+class HealthControllerIT {
   @MockBean private FileStorageService fileStorageService;
 
   @BeforeEach

@@ -36,6 +36,11 @@ public class AuthProvider extends AbstractUserDetailsAuthenticationProvider {
     return getPrincipal().getBearer();
   }
 
+  /**
+   * @param userDetails as retrieved from the {@link #retrieveUser(String,
+   *     UsernamePasswordAuthenticationToken)} or <code>UserCache</code>
+   * @param authentication the current request that needs to be authenticated
+   */
   @Override
   protected void additionalAuthenticationChecks(
       UserDetails userDetails, UsernamePasswordAuthenticationToken authentication)
