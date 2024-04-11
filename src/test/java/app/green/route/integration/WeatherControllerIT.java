@@ -2,6 +2,7 @@ package app.green.route.integration;
 
 import static app.green.route.testutils.TestUtils.VALID_TOKEN;
 import static app.green.route.testutils.TestUtils.anAvailablePort;
+import static app.green.route.testutils.TestUtils.setFileStorageService;
 import static app.green.route.testutils.TestUtils.setFirebaseService;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -17,7 +18,9 @@ import app.green.route.endpoint.rest.model.Weather;
 import app.green.route.service.api.firebase.FirebaseService;
 import app.green.route.service.api.weather.WeatherApi;
 import app.green.route.service.api.weather.payload.WeatherResponse;
+import app.green.route.service.file.FileStorageService;
 import app.green.route.testutils.TestUtils;
+import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,10 +37,12 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 public class WeatherControllerIT {
   @MockBean private WeatherApi weatherApi;
   @MockBean private FirebaseService firebaseService;
+  @MockBean private FileStorageService fileStorageService;
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws IOException {
     setFirebaseService(firebaseService);
+    setFileStorageService(fileStorageService);
     when(weatherApi.getForecasts(any()))
         .thenReturn(
             WeatherResponse.builder()

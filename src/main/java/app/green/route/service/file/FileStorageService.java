@@ -9,9 +9,9 @@ import com.google.cloud.storage.StorageOptions;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class FileStorageService {
   private final Storage storage;
   private final String bucketName;

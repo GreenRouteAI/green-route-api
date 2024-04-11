@@ -2,6 +2,7 @@ package app.green.route.integration;
 
 import static app.green.route.testutils.TestUtils.VALID_TOKEN;
 import static app.green.route.testutils.TestUtils.anAvailablePort;
+import static app.green.route.testutils.TestUtils.setFileStorageService;
 import static app.green.route.testutils.TestUtils.setFirebaseService;
 import static app.green.route.testutils.TestUtils.setGeminiConf;
 import static app.green.route.testutils.TestUtils.setTravelApi;
@@ -17,7 +18,9 @@ import app.green.route.endpoint.rest.model.Itinerary;
 import app.green.route.service.api.firebase.FirebaseService;
 import app.green.route.service.api.gemini.conf.GeminiConf;
 import app.green.route.service.api.travelco.TravelCO2Api;
+import app.green.route.service.file.FileStorageService;
 import app.green.route.testutils.TestUtils;
+import java.io.IOException;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,12 +38,14 @@ public class RouteControllerIT {
   @MockBean private GeminiConf geminiConf;
   @MockBean private TravelCO2Api travelCO2Api;
   @MockBean private FirebaseService firebaseService;
+  @MockBean private FileStorageService fileStorageService;
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws IOException {
     setGeminiConf(geminiConf);
     setFirebaseService(firebaseService);
     setTravelApi(travelCO2Api);
+    setFileStorageService(fileStorageService);
   }
 
   private ApiClient anApiClient(String token) {

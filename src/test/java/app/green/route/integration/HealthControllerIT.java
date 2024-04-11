@@ -1,18 +1,22 @@
 package app.green.route.integration;
 
 import static app.green.route.testutils.TestUtils.anAvailablePort;
+import static app.green.route.testutils.TestUtils.setFileStorageService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 import app.green.route.AbstractContextInitializer;
+import app.green.route.service.file.FileStorageService;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -22,6 +26,13 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @ContextConfiguration(initializers = HealthControllerIT.ContextInitializer.class)
 @AutoConfigureMockMvc
 public class HealthControllerIT {
+  @MockBean private FileStorageService fileStorageService;
+
+  @BeforeEach
+  void setUp() throws IOException {
+    setFileStorageService(fileStorageService);
+  }
+
   static class ContextInitializer extends AbstractContextInitializer {
     public static final int SERVER_PORT = anAvailablePort();
 
