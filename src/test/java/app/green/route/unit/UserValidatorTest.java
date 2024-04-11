@@ -9,7 +9,7 @@ import app.green.route.endpoint.validator.UserValidator;
 import app.green.route.model.exception.BadRequestException;
 import org.junit.jupiter.api.Test;
 
-public class UserValidatorTest {
+class UserValidatorTest {
   private UserValidator subject = new UserValidator();
 
   @Test

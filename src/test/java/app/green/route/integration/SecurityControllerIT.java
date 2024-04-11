@@ -32,7 +32,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @ContextConfiguration(initializers = SecurityControllerIT.ContextInitializer.class)
 @AutoConfigureMockMvc
-public class SecurityControllerIT {
+class SecurityControllerIT {
   @MockBean private FirebaseService firebaseServiceMock;
   @MockBean private FileStorageService fileStorageService;
 

@@ -35,7 +35,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @ContextConfiguration(initializers = HistoryControllerIT.ContextInitializer.class)
 @AutoConfigureMockMvc
-public class HistoryControllerIT {
+class HistoryControllerIT {
   @MockBean private FirebaseService firebaseService;
   @MockBean private TravelCO2Api travelCO2Api;
   @MockBean private GeminiConf geminiConf;

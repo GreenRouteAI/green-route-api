@@ -61,7 +61,7 @@ public class SecurityConf {
                         new AntPathRequestMatcher("/**", OPTIONS.toString())))),
             AnonymousAuthenticationFilter.class)
         .authorizeHttpRequests(
-            (authorize) ->
+            authorize ->
                 authorize
                     .requestMatchers(OPTIONS, "/**")
                     .permitAll()
@@ -100,7 +100,7 @@ public class SecurityConf {
     return new ForbiddenException(e.getMessage());
   }
 
-  private AuthFilter bearerFilter(RequestMatcher requestMatcher) throws Exception {
+  private AuthFilter bearerFilter(RequestMatcher requestMatcher) {
     AuthFilter bearerFilter = new AuthFilter(requestMatcher, userService, firebaseService);
     bearerFilter.setAuthenticationManager(authenticationManager());
     bearerFilter.setAuthenticationSuccessHandler(

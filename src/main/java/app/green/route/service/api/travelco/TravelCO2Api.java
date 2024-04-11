@@ -1,5 +1,8 @@
 package app.green.route.service.api.travelco;
 
+import static app.green.route.model.exception.ApiException.ExceptionType.SERVER_EXCEPTION;
+
+import app.green.route.model.exception.ApiException;
 import app.green.route.service.api.travelco.payload.AccommodationCarboneFootPrint;
 import app.green.route.service.api.travelco.payload.AccommodationPayload;
 import app.green.route.service.api.travelco.payload.TransportCarboneFootPrint;
@@ -43,7 +46,7 @@ public class TravelCO2Api {
       log.info("Foot print resp {}", response.body());
       return mapper.readValue(response.body(), TransportCarboneFootPrint.class);
     } catch (URISyntaxException | IOException | InterruptedException e) {
-      throw new RuntimeException(e);
+      throw new ApiException(SERVER_EXCEPTION, e.getMessage());
     }
   }
 
@@ -61,7 +64,7 @@ public class TravelCO2Api {
       log.info("Foot print resp {}", response.body());
       return mapper.readValue(response.body(), AccommodationCarboneFootPrint.class);
     } catch (URISyntaxException | IOException | InterruptedException e) {
-      throw new RuntimeException(e);
+      throw new ApiException(SERVER_EXCEPTION, e.getMessage());
     }
   }
 }

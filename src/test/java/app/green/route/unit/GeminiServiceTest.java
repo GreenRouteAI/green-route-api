@@ -10,7 +10,7 @@ import app.green.route.service.api.gemini.conf.GeminiConf;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class GeminiServiceTest {
+class GeminiServiceTest {
   private GeminiService subject;
   private GeminiConf geminiConfMock;
 

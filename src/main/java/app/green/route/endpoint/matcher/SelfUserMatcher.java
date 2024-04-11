@@ -17,6 +17,6 @@ public class SelfUserMatcher extends SelfMatcher {
     if (!antMatcher.matches(request)) {
       return false;
     }
-    return Objects.equals(getId(request), authResourceProvider.getUser().getId());
+    return Objects.equals(getId(request), AuthProvider.getUser().getId());
   }
 }

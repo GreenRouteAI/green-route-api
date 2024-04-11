@@ -34,7 +34,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @ContextConfiguration(initializers = RouteControllerIT.ContextInitializer.class)
 @AutoConfigureMockMvc
-public class RouteControllerIT {
+class RouteControllerIT {
   @MockBean private GeminiConf geminiConf;
   @MockBean private TravelCO2Api travelCO2Api;
   @MockBean private FirebaseService firebaseService;
