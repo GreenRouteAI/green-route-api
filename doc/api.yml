@@ -114,6 +114,86 @@ paths:
         "500":
           $ref: "#/components/responses/500"
 
+  /users/{id}/raw:
+    post:
+      tags:
+        - User
+      summary: Update user photo
+      operationId: updateProfilePic
+      security: [ ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          image/*:
+            schema:
+              type: string
+              format: binary
+      responses:
+        200:
+          description: File key
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: photo.png
+        500:
+          $ref: '#/components/responses/500'
+  /raw/{fileId}:
+    post:
+      tags:
+        - File
+      summary: Upload standard file
+      operationId: uploadFile
+      security: [ ]
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          image/*:
+            schema:
+              type: string
+              format: binary
+      responses:
+        200:
+          description: File key
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: photo.png
+        500:
+          $ref: '#/components/responses/500'
+    get:
+      tags:
+        - File
+      summary: Retrieve file
+      operationId: downloadFile
+      security: [ ]
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: The required file
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        500:
+          $ref: '#/components/responses/500'
   /activities:
     get:
       tags:
