@@ -96,7 +96,7 @@ public class FileControllerIT {
     HttpResponse<String> response =
         unauthenticatedClient.send(
             HttpRequest.newBuilder()
-                .uri(URI.create(basePath + "/users/" + userId))
+                .uri(URI.create(basePath + "/users/" + userId + "/raw"))
                 .header("Authorization", "Bearer " + VALID_TOKEN)
                 .POST(HttpRequest.BodyPublishers.ofByteArray(file))
                 .build(),
