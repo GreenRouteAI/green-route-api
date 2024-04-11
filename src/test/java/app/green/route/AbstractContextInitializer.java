@@ -38,6 +38,7 @@ public abstract class AbstractContextInitializer
         "sentry.environment=dummy",
         "weather.api.key=dummy",
         "weather.api.url=https://api.weatherapi.com",
+        "bucket.name=dummy",
         "spring.flyway.locations=classpath:/db/migration," + FLYWAY_TESTDATA_PATH);
   }
 
