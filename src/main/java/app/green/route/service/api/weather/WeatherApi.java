@@ -23,15 +23,18 @@ public class WeatherApi {
   private static final ObjectMapper mapper = new ObjectMapper();
   private final String apiKey;
   private final String baseUrl;
+  private final HttpClient client;
 
   public WeatherApi(
-      @Value("${weather.api.key}") String key, @Value("${weather.api.url}") String url) {
+      @Value("${weather.api.key}") String key,
+      @Value("${weather.api.url}") String url,
+      HttpClient httpClient) {
     apiKey = key;
     baseUrl = url;
+    client = httpClient;
   }
 
   public WeatherResponse getForecasts(String location) {
-    HttpClient client = HttpClient.newBuilder().build();
     try {
       HttpRequest request =
           HttpRequest.newBuilder()
