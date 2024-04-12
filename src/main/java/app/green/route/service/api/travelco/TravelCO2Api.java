@@ -25,15 +25,18 @@ public class TravelCO2Api {
   private static final String BEARER_PREFIX = "Bearer ";
   private final String apiKey;
   private final String baseUrl;
+  private final HttpClient client;
 
   public TravelCO2Api(
-      @Value("${travel.api.key}") String key, @Value("${travel.api.url}") String url) {
+      @Value("${travel.api.key}") String key,
+      @Value("${travel.api.url}") String url,
+      HttpClient httpClient) {
     apiKey = key;
     baseUrl = url;
+    client = httpClient;
   }
 
   public TransportCarboneFootPrint evaluateTransport(TransportPayload payload) {
-    HttpClient client = HttpClient.newBuilder().build();
     try {
       HttpRequest request =
           HttpRequest.newBuilder()
@@ -51,7 +54,6 @@ public class TravelCO2Api {
   }
 
   public AccommodationCarboneFootPrint evaluateAccommodation(AccommodationPayload payload) {
-    HttpClient client = HttpClient.newBuilder().build();
     try {
       HttpRequest request =
           HttpRequest.newBuilder()
