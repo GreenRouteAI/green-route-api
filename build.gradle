@@ -109,6 +109,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'io.sentry:sentry-spring-boot-starter-jakarta'
+	implementation 'io.sentry:sentry-logback:7.6.0'
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'com.google.cloud:google-cloud-vertexai:0.8.0'
 	// https://mvnrepository.com/artifact/com.google.cloud.sql/postgres-socket-factory
