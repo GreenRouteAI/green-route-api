@@ -4,6 +4,7 @@ import static java.util.UUID.randomUUID;
 
 import app.green.route.service.FileService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,9 @@ public class FileController {
     return service.uploadFile(fileId, file);
   }
 
-  @GetMapping("/raw/{fileId}")
+  @GetMapping(
+      value = "/raw/{fileId}",
+      produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
   public byte[] downloadFile(@PathVariable("fileId") String fileId) {
     return service.downloadFile(fileId);
   }

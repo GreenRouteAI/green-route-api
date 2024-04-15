@@ -331,6 +331,8 @@ components:
     Itinerary:
       type: object
       properties:
+        title:
+          type: string
         transport:
           type: object
           properties:
