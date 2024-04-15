@@ -21,7 +21,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class TravelCO2ApiTest {
+class TravelCO2ApiTest {
   private static final String apiKey = "api-key";
   private static final String baseUrl = "http://localhost:8080";
 
