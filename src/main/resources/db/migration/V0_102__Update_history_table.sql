@@ -1,0 +1,1 @@
+alter table "history" add column creation_datetime timestamp with time zone;

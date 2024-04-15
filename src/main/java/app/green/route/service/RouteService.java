@@ -15,6 +15,7 @@ import app.green.route.service.api.travelco.payload.AccommodationPayload;
 import app.green.route.service.api.travelco.payload.TransportCarboneFootPrint;
 import app.green.route.service.api.travelco.payload.TransportPayload;
 import java.math.BigDecimal;
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -43,23 +44,28 @@ public class RouteService {
                 description.getVehicle().getType(),
                 description.getNights(),
                 description.getAccommodationType()));
-    var itinerary = itineraryFrom(promptResponse, transCarboneFootPrint, accCarboneFootPrint);
+    String title = description.getFrom() + " to " + description.getTo();
+    var itinerary =
+        itineraryFrom(title, promptResponse, transCarboneFootPrint, accCarboneFootPrint);
     var authenticatedUser = AuthProvider.getUser();
     var history =
         History.builder()
             .id(randomUUID().toString())
             .user(authenticatedUser)
+            .creationDatetime(Instant.now())
             .itinerary(itinerary)
             .build();
     return historyRepository.save(history).getItinerary();
   }
 
   private Itinerary itineraryFrom(
+      String title,
       String promptResponse,
       TransportCarboneFootPrint carboneFootPrint,
       AccommodationCarboneFootPrint accCarboneFootPrint) {
     return new Itinerary()
         .travelDescription(promptResponse)
+        .title(title)
         .transport(
             new ItineraryTransport()
                 .co2e(BigDecimal.valueOf(carboneFootPrint.getCo2e()))
