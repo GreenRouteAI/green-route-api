@@ -78,6 +78,7 @@ public class ModelTest {
     assertEquals(50.0, transport.getCo2e());
     assertEquals(25.0, transport.getCo2ePP());
     assertEquals(vehicle, transport.getVehicle());
+    assertEquals(vehicle.getFuel(), transport.getVehicle().getFuel());
   }
 
   @Test
@@ -93,6 +94,11 @@ public class ModelTest {
     assertEquals(100.0, payload.getDistance());
     assertEquals(2, payload.getPeople());
     assertEquals(vehicle, payload.getVehicle());
+    assertEquals("Car", vehicle.getType());
+    assertEquals("Toyota", vehicle.getDescription());
+    assertEquals(fuel, vehicle.getFuel());
+    assertEquals("Gasoline", fuel.getType());
+    assertEquals("Regular", fuel.getDescription());
   }
 
   @Test
