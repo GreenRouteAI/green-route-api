@@ -117,6 +117,8 @@ dependencies {
 	implementation 'com.google.firebase:firebase-admin:9.2.0'
 	implementation 'com.google.cloud:google-cloud-storage'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	// https://mvnrepository.com/artifact/org.apache.tika/tika-core
+	implementation 'org.apache.tika:tika-core:2.9.2'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'

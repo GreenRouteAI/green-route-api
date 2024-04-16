@@ -5,6 +5,8 @@ import app.green.route.endpoint.rest.model.TravelDescription;
 import app.green.route.endpoint.rest.model.Vehicle;
 import app.green.route.service.api.travelco.payload.AccommodationPayload;
 import app.green.route.service.api.travelco.payload.TransportPayload;
+import org.apache.tika.Tika;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -75,5 +77,11 @@ public class RouteRestMapper {
       case ROOM -> "room";
       case RENTED_APARTMENT -> "rented_apartment";
     };
+  }
+
+  public static MediaType parseMediaTypeFromBytes(byte[] bytes) {
+    Tika tika = new Tika();
+    String guessedMediaTypeValue = tika.detect(bytes);
+    return MediaType.parseMediaType(guessedMediaTypeValue);
   }
 }
